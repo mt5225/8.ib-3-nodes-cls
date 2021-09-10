@@ -21,13 +21,13 @@
           - awscli
 
     - name: save key to file
-      ansible.builtin.template:
+      template:
         src:  ./key.j2
         dest: /root/ob.pem
         mode: '0400'
    
     - name: generate cluster config 
-      ansible.builtin.template:
+      template:
         src: ./cluster.j2
         dest: /root/cluster.yaml
         mode: '0644'
