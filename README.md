@@ -1,1 +1,1 @@
-# OB single instance with VPC
+# OB three instances cluster with VPC

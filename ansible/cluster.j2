@@ -1,0 +1,24 @@
+## Only need to configure when remote login is required
+user:
+  username: {{ ansible_user }}
+  key_file: /root/ob.pem 
+oceanbase-ce:
+  servers:
+    - name: z1
+      ip: {{ ob_nodes.split(",")[0] }}
+    - name: z2
+      ip: {{ ob_nodes.split(",")[1] }}
+  global:
+    mysql_port: 2881 
+    rpc_port: 2882 
+    home_path: /home/centos/observer
+    memory_limit: 12G 
+    datafile_disk_percentage: 20 
+    syslog_level: INFO 
+    enable_syslog_wf: false 
+    enable_syslog_recycle: true 
+    max_syslog_file_count: 4 
+  z1:
+    zone: zone1
+  z2:
+    zone: zone2

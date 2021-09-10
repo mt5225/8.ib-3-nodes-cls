@@ -1,6 +1,8 @@
 ---
-- hosts: obsvr 
+- hosts: configsvr 
   remote_user: "{{ ansible_user }}"
+  vars: 
+    key_content: "{{ lookup('aws_ssm', '/cloudj/cloudiac/ansible/ssh-key', region='us-west-2') }}"
   gather_facts: no
   become: true
 
@@ -9,25 +11,49 @@
       wait_for_connection:
         delay: 20
         timeout: 300
+
     - name: install packages
       yum:
         name: 
           - git
           - python3
           - yum-utils
-          - mysql
-    - name: checkout
-      git:
-        repo: https://github.com/oceanbase/obdeploy.git
-        dest: /root/obdeploy
+          - awscli
+
+    - name: save key to file
+      ansible.builtin.template:
+        src:  ./key.j2
+        dest: /root/ob.pem
+        mode: '0400'
+   
+    - name: generate cluster config 
+      ansible.builtin.template:
+        src: ./cluster.j2
+        dest: /root/cluster.yaml
+        mode: '0644'
+    
+    - name: read cluster file
+      command: cat /root/cluster.yaml
+      register: cls 
+      
+    - name: show cluster config file
+      debug:
+        msg: "{{ cls.stdout_lines }}"
+
     - name: repo 
       command: yum-config-manager --add-repo https://mirrors.aliyun.com/oceanbase/OceanBase.repo 
+
     - name: install ob 
       yum:
         name: ob-deploy
-    - name: deploy
-      command: obd cluster deploy c1 -c /root/obdeploy/example/mini-local-example.yaml
+
+    - name: deploy cluster
+      command: obd cluster deploy c1 -c /root/cluster.yaml
+
     - name: cluster list
       command: obd cluster list 
       register: out
-    - debug: var=out.stdout_lines
+
+    - name: show cluster status
+      debug: 
+        msg: "{{ out.stdout_lines }}"

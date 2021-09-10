@@ -1,6 +1,6 @@
 data "aws_availability_zones" "available" {}
 
-module "vpc" { #A
+module "vpc" {
   source           = "../aws-base/terraform-aws-vpc"
   name             = "${var.namespace}-vpc"
   cidr             = "10.81.0.0/16"
@@ -42,6 +42,10 @@ module "db_sg" {
   source = "../aws-base/terraform-aws-sg"
   vpc_id = module.vpc.vpc_id
   ingress_rules = [
+    {
+      port            = 2881
+      security_groups = [module.websvr_sg.security_group.id]
+    },
     {
       port            = 2882
       security_groups = [module.websvr_sg.security_group.id]

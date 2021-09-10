@@ -4,3 +4,4 @@
 *.tfstate
 .DS_Store
 .terraform*
+terraform.py
