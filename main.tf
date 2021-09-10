@@ -4,12 +4,12 @@ module "networking" {
 }
 
 module "configsvr" {
-  source      = "./modules/ob"
-  namespace   = var.namespace
-  ssh_keypair = var.ssh_keypair
-  vpc         = module.networking.vpc
-  sg          = module.networking.sg
-
+  source        = "./modules/ob"
+  namespace     = var.namespace
+  instance_type = "t3.small"
+  ssh_keypair   = var.ssh_keypair
+  vpc           = module.networking.vpc
+  sg            = module.networking.sg
 }
 
 module "obsvr" {

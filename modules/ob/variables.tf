@@ -14,3 +14,8 @@ variable "sg" {
 variable "namespace" {
   type = string
 }
+
+variable "instance_type" {
+  type    = string
+  default = "t3.xlarge"
+}
