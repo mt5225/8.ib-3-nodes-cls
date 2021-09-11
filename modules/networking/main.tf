@@ -23,6 +23,15 @@ module "lb_sg" {
   }]
 }
 
+module "proxy" {
+  source = "../aws-base/terraform-aws-sg"
+  vpc_id = module.vpc.vpc_id
+  ingress_rules = [{
+    port        = 22
+    cidr_blocks = ["0.0.0.0/0"]
+  }]
+}
+
 module "websvr_sg" {
   source = "../aws-base/terraform-aws-sg"
   vpc_id = module.vpc.vpc_id
@@ -32,8 +41,8 @@ module "websvr_sg" {
       security_groups = [module.lb_sg.security_group.id]
     },
     {
-      port        = 22               #C
-      cidr_blocks = ["10.81.0.0/16"] #C
+      port        = 22
+      cidr_blocks = ["10.81.0.0/16"]
     }
   ]
 }
@@ -56,7 +65,7 @@ module "db_sg" {
     },
     {
       port        = 22
-      cidr_blocks = ["0.0.0.0/0"] #C
+      cidr_blocks = ["10.81.0.0/16"]
     },
   ]
 }
