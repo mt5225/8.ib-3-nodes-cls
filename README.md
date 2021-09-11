@@ -1,4 +1,4 @@
-# OB multi-instances cluster with VPC
+# Multi-instance OB cluster
 
 ## Requirements
 
@@ -37,7 +37,7 @@
 | Name                                                               | Description                                             | Type     | Default       | Required |
 | ------------------------------------------------------------------ | ------------------------------------------------------- | -------- | ------------- | :------: |
 | <a name="input_namespace"></a> [namespace](#input_namespace)       | The project namespace to use for unique resource naming | `string` | `"obsingle"`  |    no    |
-| <a name="input_num"></a> [num](#input_num)                         | number of ob instances in cluster                       | `number` | `2`           |    no    |
+| <a name="input_num"></a> [num](#input_num)                         | number of ob instances in cluster                       | `number` | `3`           |    no    |
 | <a name="input_region"></a> [region](#input_region)                | AWS region                                              | `string` | `"us-west-2"` |    no    |
 | <a name="input_ssh_keypair"></a> [ssh_keypair](#input_ssh_keypair) | SSH keypair to use for EC2 instance                     | `string` | `"ansible"`   |    no    |
 
