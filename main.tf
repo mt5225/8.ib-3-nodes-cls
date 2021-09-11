@@ -8,18 +8,19 @@ module "configsvr" {
   namespace     = var.namespace
   instance_type = "t3.small"
   ssh_keypair   = var.ssh_keypair
-  vpc           = module.networking.vpc
-  sg            = module.networking.sg
+  subnet        = module.networking.vpc.public_subnets[0]
+  sg            = module.networking.sg.proxy
+  public_ip     = true
 }
 
 module "obsvr" {
-  source      = "./modules/ob"
-  count       = var.num
-  namespace   = var.namespace
-  ssh_keypair = var.ssh_keypair
-  vpc         = module.networking.vpc
-  sg          = module.networking.sg
-
+  source        = "./modules/ob"
+  count         = var.num
+  namespace     = var.namespace
+  instance_type = "t3.xlarge"
+  ssh_keypair   = var.ssh_keypair
+  subnet        = module.networking.vpc.database_subnets[0]
+  sg            = module.networking.sg.db
 }
 
 data "aws_instance" "obsvrs" {

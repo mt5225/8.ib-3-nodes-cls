@@ -10,10 +10,10 @@ module "ob" {
   ami                         = data.aws_ami.centos.id
   instance_type               = var.instance_type
   key_name                    = var.ssh_keypair
-  vpc_security_group_ids      = [var.sg.db]
-  subnet_id                   = var.vpc.public_subnets[0]
+  vpc_security_group_ids      = [var.sg]
+  subnet_id                   = var.subnet
   iam_instance_profile        = module.iam_instance_profile.name
-  associate_public_ip_address = true
+  associate_public_ip_address = var.public_ip
 
   tags = {
     Terraform   = "true"

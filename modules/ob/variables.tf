@@ -3,7 +3,7 @@ variable "ssh_keypair" {
   type = string
 }
 
-variable "vpc" {
+variable "subnet" {
   type = any
 }
 
@@ -18,4 +18,9 @@ variable "namespace" {
 variable "instance_type" {
   type    = string
   default = "t3.xlarge"
+}
+
+variable "public_ip" {
+  type    = bool
+  default = false
 }

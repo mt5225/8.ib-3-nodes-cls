@@ -7,5 +7,6 @@ output "sg" {
     lb     = module.lb_sg.security_group.id
     db     = module.db_sg.security_group.id
     websvr = module.websvr_sg.security_group.id
+    proxy  = module.lb_sg.security_group.id
   }
 }
