@@ -18,7 +18,7 @@ variable "region" {
 
 variable "num" {
   description = "number of ob instances in cluster"
-  default     = 2
+  default     = 3
   type        = number
 
 }

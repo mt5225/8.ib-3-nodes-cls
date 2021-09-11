@@ -1,0 +1,10 @@
+#cloud-config
+write_files:
+  -   path: /etc/security/limits.conf
+      owner: root:root
+      permissions: "0644"
+      content: |
+        * soft nofile 100000
+        * hard nofile 100000
+        root soft nofile 100000
+        root hard nofile 100000
