@@ -14,7 +14,7 @@ data "cloudinit_config" "config" {
 
 module "ob" {
   source                      = "terraform-aws-modules/ec2-instance/aws"
-  version                     = "3.1.0"
+  version                     = "3.2.0"
   name                        = "${var.namespace}-ec2"
   ami                         = data.aws_ami.centos.id
   instance_type               = var.instance_type
