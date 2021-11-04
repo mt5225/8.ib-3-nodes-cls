@@ -24,6 +24,11 @@ module "ob" {
   iam_instance_profile        = module.iam_instance_profile.name
   associate_public_ip_address = var.public_ip
   user_data                   = data.cloudinit_config.config.rendered
+  root_block_device = [
+    {
+      delete_on_termination = true
+    },
+  ]
 
   tags = {
     Terraform   = "true"
